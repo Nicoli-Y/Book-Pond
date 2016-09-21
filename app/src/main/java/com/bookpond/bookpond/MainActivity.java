@@ -1,10 +1,8 @@
 package com.bookpond.bookpond;
 
-import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -25,14 +23,10 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 
-				FragmentTransaction ft = getFragmentManager().beginTransaction();
-				ft.replace(R.id.fragment, new AddEditBookFragment());
+				Intent intent = new Intent(MainActivity.this, AddEditBookActivity.class);
+				overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+				startActivity(intent);
 
-				ft.addToBackStack("");
-				ft.commit();
-
-				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-						.setAction("Action", null).show();
 			}
 		});
 	}
