@@ -24,9 +24,6 @@ public class AddEditBookActivity extends AppCompatActivity {
 
 		View view = findViewById(R.id.add_edit_book_fragment);
 
-		Snackbar.make(view, "Add a book to the pond", Snackbar.LENGTH_LONG)
-				.setAction("Action", null).show();
-
 		Intent intent = getIntent();
 		book = (Book) intent.getSerializableExtra(Constants.EXTRA_BOOK_OBJECT);
 
