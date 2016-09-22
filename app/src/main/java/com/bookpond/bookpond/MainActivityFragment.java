@@ -11,8 +11,8 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -21,8 +21,8 @@ public class MainActivityFragment extends Fragment {
 
 	ExpandableListView expandableListView;
 	ExpandableListAdapter expandableListAdapter;
-	List<String> expandableListTitle;
-	HashMap<String, List<String>> expandableListDetail;
+	List<String> expandableListId;
+	Map<String, List<Book>> expandableListDetail;
 	View view;
 
 	public MainActivityFragment() {
@@ -43,15 +43,15 @@ public class MainActivityFragment extends Fragment {
 
 		expandableListView = (ExpandableListView) view.findViewById(R.id.expandableListView);
 		expandableListDetail = ExpandableListDataPump.getData();
-		expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
-		expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListTitle, expandableListDetail);
+		expandableListId = new ArrayList<>(expandableListDetail.keySet());
+		expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListId, expandableListDetail);
 		expandableListView.setAdapter(expandableListAdapter);
 		expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
 			@Override
 			public void onGroupExpand(int groupPosition) {
 				Toast.makeText(MainActivityFragment.this.getContext().getApplicationContext(),
-						expandableListTitle.get(groupPosition) + " List Expanded.",
+						expandableListId.get(groupPosition) + " List Expanded.",
 						Toast.LENGTH_SHORT).show();
 			}
 		});
@@ -61,7 +61,7 @@ public class MainActivityFragment extends Fragment {
 			@Override
 			public void onGroupCollapse(int groupPosition) {
 				Toast.makeText(MainActivityFragment.this.getContext().getApplicationContext(),
-						expandableListTitle.get(groupPosition) + " List Collapsed.",
+						expandableListId.get(groupPosition) + " List Collapsed.",
 						Toast.LENGTH_SHORT).show();
 
 			}
@@ -73,11 +73,11 @@ public class MainActivityFragment extends Fragment {
 										int groupPosition, int childPosition, long id) {
 				Toast.makeText(
 						MainActivityFragment.this.getContext().getApplicationContext(),
-						expandableListTitle.get(groupPosition)
+						expandableListId.get(groupPosition)
 								+ " -> "
 								+ expandableListDetail.get(
-								expandableListTitle.get(groupPosition)).get(
-								childPosition), Toast.LENGTH_SHORT
+								expandableListId.get(groupPosition)).get(
+								childPosition).title, Toast.LENGTH_SHORT
 				).show();
 
 				Intent intent = new Intent(MainActivityFragment.this.getContext(), AddEditBookActivity.class);
