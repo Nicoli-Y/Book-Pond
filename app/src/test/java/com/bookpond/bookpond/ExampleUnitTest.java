@@ -20,24 +20,18 @@ public class ExampleUnitTest {
     @Test
     public void readBookJsonToString() throws Exception {
         String jsonStr = FileUtils.readFileToString(new File("Book.json"), "UTF-8");
-        System.out.println(jsonStr);
 
         ObjectMapper mapper = new ObjectMapper();
-        Book jsonRite = mapper.readValue(jsonStr, Book.class);
-        System.out.println(jsonRite.title);
-        
-//      creates a new test book
-        Book testBook = new Book();
-        testBook.title = "Hello World";
-        testBook.genre = "test";
-        testBook.id = "1";
-        System.out.println(testBook.title);
-        System.out.println(testBook.genre);
-        System.out.println(testBook.id);
-    }
+        Book bookJson = mapper.readValue(jsonStr, Book.class);
+
+        Book bookExpected = new Book("1", "Harry Potter Philosophers Stone", "Fantasy");
+
+        assertEquals(bookExpected, bookJson);
+}
+
 
     /*
-    creates the database of id, title, genre
+    creates the database of id, title, genre,
      */
     @Test
     public void readBookFilesToInfo() throws Exception {
@@ -51,5 +45,6 @@ public class ExampleUnitTest {
             System.out.println(bookJson);
 
         }
+
     }
 }
