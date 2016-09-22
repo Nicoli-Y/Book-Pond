@@ -1,6 +1,19 @@
 {
   "books":[
-    {"title":"Harry Potter Philosophers Stone"},
-    {"title":"Diary of a Wimpy Kid"},
-    {"title":"アカメが斬る!"}]
+    {
+      "title":"Harry Potter Philosophers Stone",
+      "genre":"Fantasy",
+      "id":"1"
+    },
+    {
+      "title":"Diary of a Wimpy Kid",
+      "genre":"Comedy",
+      "id":"2"
+    },
+    {
+      "title":"アカメが斬る!",
+      "genre":"Gore",
+      "id":"3"
+    }
+  ]
 }

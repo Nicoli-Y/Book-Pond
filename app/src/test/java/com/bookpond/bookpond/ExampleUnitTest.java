@@ -18,41 +18,38 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
     @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
-
-    @Test
-    public void readFileToString() throws Exception {
+    public void readBookJsonToString() throws Exception {
         String jsonStr = FileUtils.readFileToString(new File("Book.json"), "UTF-8");
         System.out.println(jsonStr);
 
-        Book book1 = new Book();
-        book1.title = "Hello World";
-        book1.genre = "test";
-        book1.id = "1";
-        System.out.println(book1.title);
-        System.out.println(book1.genre);
-        System.out.println(book1.id);
-
         ObjectMapper mapper = new ObjectMapper();
-        Book jsnRite = mapper.readValue(jsonStr, Book.class);
-        System.out.println(jsnRite.title);
-
+        Book jsonRite = mapper.readValue(jsonStr, Book.class);
+        System.out.println(jsonRite.title);
+        
+//      creates a new test book
+        Book testBook = new Book();
+        testBook.title = "Hello World";
+        testBook.genre = "test";
+        testBook.id = "1";
+        System.out.println(testBook.title);
+        System.out.println(testBook.genre);
+        System.out.println(testBook.id);
     }
 
+    /*
+    creates the database of id, title, genre
+     */
     @Test
-    public void readFileToBooks() throws Exception {
+    public void readBookFilesToInfo() throws Exception {
         String jsonStr = FileUtils.readFileToString(new File("Books.json"), "UTF-8");
-        System.out.println(jsonStr);
-
-        Book book1 = new Book();
-        book1.title = "Hello World";
-        System.out.println(book1.title);
 
         ObjectMapper mapper = new ObjectMapper();
-        Book jsnRite = mapper.readValue(jsonStr, Book.class);
-        System.out.println(jsnRite.title);
+        Shelf shelf = mapper.readValue(jsonStr, Shelf.class);
+        for (int i = 0; i < shelf.books.size(); i++) {
+            Book bookJson = shelf.books.get(i);
 
+            System.out.println(bookJson);
+
+        }
     }
 }
