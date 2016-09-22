@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class ExpandableListDataPump {
 
@@ -15,7 +16,7 @@ public class ExpandableListDataPump {
 			Book book = new Book();
 			book.title = "G1 Book " + i;
 			book.genre = "Genre 1";
-			book.id = String.valueOf(i);
+			book.id = UUID.randomUUID().toString();
 			genre1.add(book);
 		}
 
@@ -24,7 +25,7 @@ public class ExpandableListDataPump {
 			Book book = new Book();
 			book.title = "G2 Book " + i;
 			book.genre = "Genre 2";
-			book.id = String.valueOf(i);
+			book.id = UUID.randomUUID().toString();
 			genre2.add(book);
 		}
 

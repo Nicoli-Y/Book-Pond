@@ -12,6 +12,8 @@ import android.widget.TextView;
 public class AddEditBookActivity extends AppCompatActivity {
 
 	private static final String TAG = AddEditBookActivity.class.getCanonicalName();
+	TextView genre;
+	TextView title;
 
 	Book book;
 
@@ -27,13 +29,19 @@ public class AddEditBookActivity extends AppCompatActivity {
 
 		Intent intent = getIntent();
 		book = (Book) intent.getSerializableExtra(Constants.EXTRA_BOOK_OBJECT);
+
+		title = (TextView) findViewById(R.id.edit_title);
+		title.setText(book.title);
+
+		genre = (TextView) findViewById(R.id.edit_genre);
+		genre.setText(book.genre);
 	}
 
 	public void save(View view) {
 
-		TextView title = (TextView) findViewById(R.id.edit_title);
 
 		book.title = title.getText().toString();
+		book.genre = genre.getText().toString();
 
 		Intent intent = new Intent();
 		intent.putExtra(Constants.EXTRA_BOOK_OBJECT, book);

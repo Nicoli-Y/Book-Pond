@@ -2,5 +2,6 @@
     <string name="app_name">Book Pond</string>
     <string name="action_settings">Settings</string>
     <string name="edit_title">Title</string>
+    <string name="edit_genre">Genre</string>
     <string name="button_save">Save</string>
 </resources>

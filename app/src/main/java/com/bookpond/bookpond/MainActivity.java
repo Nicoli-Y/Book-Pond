@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 			public void onClick(View view) {
 
 				Intent intent = new Intent(MainActivity.this, AddEditBookActivity.class);
-				intent.putExtra(Constants.EXTRA_BOOK_OBJECT, new Book(UUID.randomUUID().toString(), null, "Genre 1"));
+				intent.putExtra(Constants.EXTRA_BOOK_OBJECT, new Book(UUID.randomUUID().toString(), null, null));
 				overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
 				startActivityForResult(intent, Constants.BOOK_ADD);
@@ -100,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
 					expandableListDetail.put(book.genre, books);
 				}
 
-				if (books.remove(book)) // update by remove and add
-					books.add(book);
+				books.remove(book);
+				books.add(book);
 
 				Log.d(TAG, "edited book " + book);
 
