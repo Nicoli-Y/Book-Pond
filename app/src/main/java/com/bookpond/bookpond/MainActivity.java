@@ -63,16 +63,21 @@ public class MainActivity extends AppCompatActivity {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
+		View mainView = findViewById(R.id.fragment);
+
 		String book = data.getStringExtra(Constants.EXTRA_BOOK_OBJECT);
 
 		if (resultCode == Activity.RESULT_OK && requestCode == Constants.BOOK_ADD) {
 			Log.d(TAG, "added book " + book);
 
-			View mainView = findViewById(R.id.fragment);
-
-			Snackbar.make(mainView, "Book saved", Snackbar.LENGTH_LONG)
+			Snackbar.make(mainView, "Book added", Snackbar.LENGTH_LONG)
 				.setAction("Action", null).show();
 
+		} else if (resultCode == Activity.RESULT_OK && requestCode == Constants.BOOK_EDIT) {
+			Log.d(TAG, "edited book " + book);
+
+			Snackbar.make(mainView, "Book edited", Snackbar.LENGTH_LONG)
+					.setAction("Action", null).show();
 		}
 
 	}

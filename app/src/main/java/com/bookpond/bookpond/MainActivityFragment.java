@@ -1,5 +1,6 @@
 package com.bookpond.bookpond;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -78,6 +79,12 @@ public class MainActivityFragment extends Fragment {
 								expandableListTitle.get(groupPosition)).get(
 								childPosition), Toast.LENGTH_SHORT
 				).show();
+
+				Intent intent = new Intent(MainActivityFragment.this.getContext(), AddEditBookActivity.class);
+				MainActivityFragment.this.getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+
+				MainActivityFragment.this.getActivity().startActivityForResult(intent, Constants.BOOK_EDIT);
+
 				return false;
 			}
 		});
