@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 			public void onClick(View view) {
 
 				Intent intent = new Intent(MainActivity.this, AddEditBookActivity.class);
+				intent.putExtra(Constants.EXTRA_BOOK_OBJECT, new Book());
 				overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
 				startActivityForResult(intent, Constants.BOOK_ADD);
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 		View mainView = findViewById(R.id.fragment);
 
 		if (data != null) {
-			String book = data.getStringExtra(Constants.EXTRA_BOOK_OBJECT);
+			Book book = (Book) data.getSerializableExtra(Constants.EXTRA_BOOK_OBJECT);
 
 			if (resultCode == Activity.RESULT_OK && requestCode == Constants.BOOK_ADD) {
 				Log.d(TAG, "added book " + book);

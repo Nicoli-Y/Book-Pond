@@ -71,18 +71,21 @@ public class MainActivityFragment extends Fragment {
 			@Override
 			public boolean onChildClick(ExpandableListView parent, View v,
 										int groupPosition, int childPosition, long id) {
+				Book book = expandableListDetail.get(
+						expandableListId.get(groupPosition)).get(
+						childPosition);
+
 				Toast.makeText(
 						MainActivityFragment.this.getContext().getApplicationContext(),
 						expandableListId.get(groupPosition)
 								+ " -> "
-								+ expandableListDetail.get(
-								expandableListId.get(groupPosition)).get(
-								childPosition).title, Toast.LENGTH_SHORT
+								+ book.title, Toast.LENGTH_SHORT
 				).show();
 
 				Intent intent = new Intent(MainActivityFragment.this.getContext(), AddEditBookActivity.class);
-				MainActivityFragment.this.getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+				intent.putExtra(Constants.EXTRA_BOOK_OBJECT, book);
 
+				MainActivityFragment.this.getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 				MainActivityFragment.this.getActivity().startActivityForResult(intent, Constants.BOOK_EDIT);
 
 				return false;
