@@ -10,6 +10,8 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -38,13 +40,35 @@ public class ExampleUnitTest {
         String jsonStr = FileUtils.readFileToString(new File("Books.json"), "UTF-8");
 
         ObjectMapper mapper = new ObjectMapper();
-        Shelf shelf = mapper.readValue(jsonStr, Shelf.class);
+        Shelf books = mapper.readValue(jsonStr, Shelf.class);
+
+        List<Book> expectedList = new ArrayList<>();
+        expectedList.add(new Book("1", "Harry Potter Philosophers Stone", "Fantasy" ));
+        expectedList.add(new Book("2", "Diary of a Wimpy Kid", "Comedy"));
+        expectedList.add(new Book("3", "アカメが斬る!", "Gore"));
+
+
+        assertArrayEquals(expectedList.toArray(), books.books.toArray());
+
+        /*
+
+
+        exptectedBooks = new ArrayLiat<Book>
+        exBook.add(new Book(fefw, fewkf, few);
+        exBook.add(new Book(jlkfew)
+
+
+        assertArrayEquals(exptectedBooks...,
+
+         */
+
+        /*
         for (int i = 0; i < shelf.books.size(); i++) {
             Book bookJson = shelf.books.get(i);
 
             System.out.println(bookJson);
 
         }
-
+*/
     }
 }
