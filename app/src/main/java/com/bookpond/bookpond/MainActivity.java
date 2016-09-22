@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ExpandableListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
 	private static final String TAG = MainActivity.class.getCanonicalName();
 	Map<String, List<Book>> expandableListDetail = ExpandableListDataPump.getData();
+	CustomExpandableListAdapter expandableListAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
 				Snackbar.make(mainView, "Book edited", Snackbar.LENGTH_LONG)
 						.setAction("Action", null).show();
 			}
+
+			expandableListAdapter.notifyDataSetChanged();
 		}
 
 	}
