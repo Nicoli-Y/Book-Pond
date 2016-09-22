@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ExpandableListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +20,18 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity {
 
 	private static final String TAG = MainActivity.class.getCanonicalName();
-	Map<String, List<Book>> expandableListDetail = ExpandableListDataPump.getData();
-	List<String> expandableListId = new ArrayList<>(expandableListDetail.keySet());
+
+	Map<String, List<Book>> expandableListDetail;
+	List<String> expandableListId;
 	CustomExpandableListAdapter expandableListAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		expandableListDetail = ExpandableListDataPump.getData(getAssets());
+		expandableListId = new ArrayList<>(expandableListDetail.keySet());
+
 		setContentView(R.layout.activity_main);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);

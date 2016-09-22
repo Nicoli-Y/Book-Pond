@@ -1,36 +1,43 @@
 package com.bookpond.bookpond;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import android.content.res.AssetManager;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimaps;
+
+import java.util.*;
+
+import com.google.common.base.Function;
+import org.apache.commons.io.IOUtils;
 
 public class ExpandableListDataPump {
 
-	public static Map<String, List<Book>> getData() {
-		Map<String, List<Book>> expandableListDetail = new HashMap<>();
+	public static Map<String, List<Book>> getData(AssetManager assetManager) {
+		Map<String, List<Book>> expandableListDetail;
 
-		List<Book> genre1 = new ArrayList<>();
-		for (int i = 1; i <= 10; i++) {
-			Book book = new Book();
-			book.title = "G1 Book " + i;
-			book.genre = "Genre 1";
-			book.id = UUID.randomUUID().toString();
-			genre1.add(book);
+		Shelf books;
+		try {
+			String jsonStr = IOUtils.toString(assetManager.open("Books.json"), "UTF-8");
+
+			ObjectMapper mapper = new ObjectMapper();
+			books = mapper.readValue(jsonStr, Shelf.class);
+		} catch (Exception e) {
+			books = new Shelf();
 		}
 
-		List<Book> genre2 = new ArrayList<>();
-		for (int i = 1; i <= 10; i++) {
-			Book book = new Book();
-			book.title = "G2 Book " + i;
-			book.genre = "Genre 2";
-			book.id = UUID.randomUUID().toString();
-			genre2.add(book);
-		}
+		Function<Book, String> sameGenre = new Function<Book, String>() {
+			@Override
+			public String apply(Book book) {
+				return book.genre;
+			}
+		};
 
-		expandableListDetail.put("Genre 1", genre1);
-		expandableListDetail.put("Genre 2", genre2);
+		ArrayListMultimap<String, Book> index =
+				ArrayListMultimap.create(Multimaps.index(books.books, sameGenre));
+
+		expandableListDetail = new HashMap<>(Multimaps.asMap(index));
+
+
 		return expandableListDetail;
 	}
 
