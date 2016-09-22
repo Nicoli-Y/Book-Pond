@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
 	private static final String TAG = MainActivity.class.getCanonicalName();
 	Map<String, List<Book>> expandableListDetail = ExpandableListDataPump.getData();
+	List<String> expandableListId = new ArrayList<>(expandableListDetail.keySet());
 	CustomExpandableListAdapter expandableListAdapter;
 
 	@Override
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 				if (books == null) { // create a new genre if it doesn't exists yet
 					books = new ArrayList<Book>();
 					expandableListDetail.put(book.genre, books);
+					expandableListId.add(book.genre);
 				}
 
 				books.add(book);
@@ -98,9 +100,13 @@ public class MainActivity extends AppCompatActivity {
 				if (books == null) { // create a new genre if it doesn't exists yet
 					books = new ArrayList<Book>();
 					expandableListDetail.put(book.genre, books);
+					expandableListId.add(book.genre);
 				}
 
-				books.remove(book);
+				for (String genre : expandableListId) {
+					List<Book> bookList = expandableListDetail.get(genre);
+					bookList.remove(book);
+				}
 				books.add(book);
 
 				Log.d(TAG, "edited book " + book);

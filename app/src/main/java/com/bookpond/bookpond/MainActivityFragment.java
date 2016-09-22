@@ -20,7 +20,6 @@ import java.util.Map;
 public class MainActivityFragment extends Fragment {
 
 	ExpandableListView expandableListView;
-	List<String> expandableListId;
 	View view;
 
 	public MainActivityFragment() {
@@ -41,9 +40,9 @@ public class MainActivityFragment extends Fragment {
 
 		MainActivity activity = (MainActivity) getActivity();
 		final Map<String, List<Book>> expandableListDetail = activity.expandableListDetail;
+		final List<String> expandableListId = activity.expandableListId;
 
 		expandableListView = (ExpandableListView) view.findViewById(R.id.expandableListView);
-		expandableListId = new ArrayList<>(expandableListDetail.keySet());
 		activity.expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListId, expandableListDetail);
 		expandableListView.setAdapter(activity.expandableListAdapter);
 		expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
