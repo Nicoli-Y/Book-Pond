@@ -74,13 +74,6 @@ public class MainActivityFragment extends Fragment {
 						expandableListId.get(groupPosition)).get(
 						childPosition);
 
-				Toast.makeText(
-						MainActivityFragment.this.getContext().getApplicationContext(),
-						expandableListId.get(groupPosition)
-								+ " -> "
-								+ book.title, Toast.LENGTH_SHORT
-				).show();
-
 				Intent intent = new Intent(MainActivityFragment.this.getContext(), AddEditBookActivity.class);
 				intent.putExtra(Constants.EXTRA_BOOK_OBJECT, book);
 
