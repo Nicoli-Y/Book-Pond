@@ -29,6 +29,25 @@ public class ExampleUnitTest {
 
         Book book1 = new Book();
         book1.title = "Hello World";
+        book1.genre = "test";
+        book1.id = "1";
+        System.out.println(book1.title);
+        System.out.println(book1.genre);
+        System.out.println(book1.id);
+
+        ObjectMapper mapper = new ObjectMapper();
+        Book jsnRite = mapper.readValue(jsonStr, Book.class);
+        System.out.println(jsnRite.title);
+
+    }
+
+    @Test
+    public void readFileToBooks() throws Exception {
+        String jsonStr = FileUtils.readFileToString(new File("Books.json"), "UTF-8");
+        System.out.println(jsonStr);
+
+        Book book1 = new Book();
+        book1.title = "Hello World";
         System.out.println(book1.title);
 
         ObjectMapper mapper = new ObjectMapper();
