@@ -51,7 +51,7 @@ public class MainActivityFragment extends Fragment {
 			@Override
 			public void onGroupExpand(int groupPosition) {
 				Toast.makeText(MainActivityFragment.this.getContext().getApplicationContext(),
-						expandableListId.get(groupPosition) + " List Expanded.",
+						"Opened " + expandableListId.get(groupPosition) + " :)",
 						Toast.LENGTH_SHORT).show();
 			}
 		});
@@ -61,7 +61,7 @@ public class MainActivityFragment extends Fragment {
 			@Override
 			public void onGroupCollapse(int groupPosition) {
 				Toast.makeText(MainActivityFragment.this.getContext().getApplicationContext(),
-						expandableListId.get(groupPosition) + " List Collapsed.",
+						"Closed " + expandableListId.get(groupPosition) + " :)",
 						Toast.LENGTH_SHORT).show();
 
 			}
