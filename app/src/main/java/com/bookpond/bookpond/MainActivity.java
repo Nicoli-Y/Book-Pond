@@ -1,15 +1,20 @@
 package com.bookpond.bookpond;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
+
+	private static final String TAG = MainActivity.class.getCanonicalName();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
 				Intent intent = new Intent(MainActivity.this, AddEditBookActivity.class);
 				overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-				startActivity(intent);
+
+				startActivityForResult(intent, Constants.BOOK_ADD);
 
 			}
 		});
@@ -51,5 +57,23 @@ public class MainActivity extends AppCompatActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		String book = data.getStringExtra(Constants.EXTRA_BOOK_OBJECT);
+
+		if (resultCode == Activity.RESULT_OK && requestCode == Constants.BOOK_ADD) {
+			Log.d(TAG, "added book " + book);
+
+			View mainView = findViewById(R.id.fragment);
+
+			Snackbar.make(mainView, "Book saved", Snackbar.LENGTH_LONG)
+				.setAction("Action", null).show();
+
+		}
+
 	}
 }
