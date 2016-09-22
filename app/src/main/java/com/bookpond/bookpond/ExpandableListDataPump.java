@@ -14,7 +14,7 @@ public class ExpandableListDataPump {
 		for (int i = 1; i <= 10; i++) {
 			Book book = new Book();
 			book.title = "G1 Book " + i;
-			book.genre = "G1";
+			book.genre = "Genre 1";
 			book.id = String.valueOf(i);
 			genre1.add(book);
 		}
@@ -23,7 +23,7 @@ public class ExpandableListDataPump {
 		for (int i = 1; i <= 10; i++) {
 			Book book = new Book();
 			book.title = "G2 Book " + i;
-			book.genre = "G2";
+			book.genre = "Genre 2";
 			book.id = String.valueOf(i);
 			genre2.add(book);
 		}

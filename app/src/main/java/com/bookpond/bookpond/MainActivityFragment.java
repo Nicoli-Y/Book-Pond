@@ -22,7 +22,6 @@ public class MainActivityFragment extends Fragment {
 	ExpandableListView expandableListView;
 	ExpandableListAdapter expandableListAdapter;
 	List<String> expandableListId;
-	Map<String, List<Book>> expandableListDetail;
 	View view;
 
 	public MainActivityFragment() {
@@ -41,8 +40,10 @@ public class MainActivityFragment extends Fragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
+		MainActivity activity = (MainActivity) getActivity();
+		final Map<String, List<Book>> expandableListDetail = activity.expandableListDetail;
+
 		expandableListView = (ExpandableListView) view.findViewById(R.id.expandableListView);
-		expandableListDetail = ExpandableListDataPump.getData();
 		expandableListId = new ArrayList<>(expandableListDetail.keySet());
 		expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListId, expandableListDetail);
 		expandableListView.setAdapter(expandableListAdapter);

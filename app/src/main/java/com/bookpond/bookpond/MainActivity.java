@@ -12,9 +12,15 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
 public class MainActivity extends AppCompatActivity {
 
 	private static final String TAG = MainActivity.class.getCanonicalName();
+	Map<String, List<Book>> expandableListDetail = ExpandableListDataPump.getData();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 			public void onClick(View view) {
 
 				Intent intent = new Intent(MainActivity.this, AddEditBookActivity.class);
-				intent.putExtra(Constants.EXTRA_BOOK_OBJECT, new Book());
+				intent.putExtra(Constants.EXTRA_BOOK_OBJECT, new Book(UUID.randomUUID().toString(), null, "Genre 1"));
 				overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
 				startActivityForResult(intent, Constants.BOOK_ADD);
@@ -70,12 +76,31 @@ public class MainActivity extends AppCompatActivity {
 			Book book = (Book) data.getSerializableExtra(Constants.EXTRA_BOOK_OBJECT);
 
 			if (resultCode == Activity.RESULT_OK && requestCode == Constants.BOOK_ADD) {
+				List<Book> books = expandableListDetail.get(book.genre);
+
+				if (books == null) { // create a new genre if it doesn't exists yet
+					books = new ArrayList<Book>();
+					expandableListDetail.put(book.genre, books);
+				}
+
+				books.add(book);
+
 				Log.d(TAG, "added book " + book);
 
 				Snackbar.make(mainView, "Book added", Snackbar.LENGTH_LONG)
 						.setAction("Action", null).show();
 
 			} else if (resultCode == Activity.RESULT_OK && requestCode == Constants.BOOK_EDIT) {
+				List<Book> books = expandableListDetail.get(book.genre);
+
+				if (books == null) { // create a new genre if it doesn't exists yet
+					books = new ArrayList<Book>();
+					expandableListDetail.put(book.genre, books);
+				}
+
+				if (books.remove(book)) // update by remove and add
+					books.add(book);
+
 				Log.d(TAG, "edited book " + book);
 
 				Snackbar.make(mainView, "Book edited", Snackbar.LENGTH_LONG)

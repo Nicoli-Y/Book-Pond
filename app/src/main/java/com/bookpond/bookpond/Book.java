@@ -29,7 +29,7 @@ public final class Book implements Serializable {
     public boolean equals(Object that){
         if (that instanceof Book) {
             Book book = (Book) that;
-            if (book.title.equals(this.title) && book.genre.equals(this.genre) && book.id.equals(this.id) )
+            if (book.id.equals(this.id))
                 return true;
             else
                 return false;
