@@ -42,6 +42,8 @@ public class ExampleUnitTest {
         ObjectMapper mapper = new ObjectMapper();
         Shelf books = mapper.readValue(jsonStr, Shelf.class);
 
+
+
         List<Book> expectedList = new ArrayList<>();
         expectedList.add(new Book("1", "Harry Potter Philosophers Stone", "Fantasy" ));
         expectedList.add(new Book("2", "Diary of a Wimpy Kid", "Comedy"));

@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 				}
 
 				for (String genre : expandableListId) {
-					List<Book> bookList = expandableListDetail.get(genre);
+					List<Book> bookList = expandableListDetail.get(genre); //*nicoli is gay :)) - Andy
 					bookList.remove(book);
 				}
 				books.add(book);
