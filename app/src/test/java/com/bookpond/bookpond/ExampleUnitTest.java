@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void readBookJsonToString() throws Exception {
-        String jsonStr = FileUtils.readFileToString(new File("Book.json"), "UTF-8");
+        String jsonStr = FileUtils.readFileToString(new File("app/src/test/resources/Book.json"), "UTF-8");
 
         ObjectMapper mapper = new ObjectMapper();
         Book bookJson = mapper.readValue(jsonStr, Book.class);
@@ -37,7 +37,7 @@ public class ExampleUnitTest {
      */
     @Test
     public void readBookFilesToInfo() throws Exception {
-        String jsonStr = FileUtils.readFileToString(new File("Books.json"), "UTF-8");
+        String jsonStr = FileUtils.readFileToString(new File("app/src/test/resources/Books.json"), "UTF-8");
 
         ObjectMapper mapper = new ObjectMapper();
         Shelf books = mapper.readValue(jsonStr, Shelf.class);
@@ -52,25 +52,9 @@ public class ExampleUnitTest {
 
         assertArrayEquals(expectedList.toArray(), books.books.toArray());
 
-        /*
-
-
-        exptectedBooks = new ArrayLiat<Book>
-        exBook.add(new Book(fefw, fewkf, few);
-        exBook.add(new Book(jlkfew)
-
-
-        assertArrayEquals(exptectedBooks...,
-
-         */
-
-        /*
-        for (int i = 0; i < shelf.books.size(); i++) {
-            Book bookJson = shelf.books.get(i);
-
-            System.out.println(bookJson);
-
-        }
-*/
     }
+
+    /**
+     * TODO: make Test name to be better
+     */
 }
