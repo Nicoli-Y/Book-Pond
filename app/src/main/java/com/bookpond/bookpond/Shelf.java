@@ -22,7 +22,10 @@ public final class Shelf {
     }
 
     public static Map<String, List<Book>> updateBook(Map<String, List<Book>> genreAndBooks, Book book) {
-        return null;
+        removeBook(genreAndBooks, book);
+        addBook(genreAndBooks, book);
+
+        return genreAndBooks;
     }
 
     public static Map<String, List<Book>> removeBook(Map<String, List<Book>> genreAndBooks, Book book) {
