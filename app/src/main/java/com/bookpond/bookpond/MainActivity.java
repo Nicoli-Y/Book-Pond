@@ -83,44 +83,39 @@ public class MainActivity extends AppCompatActivity {
 			Book book = (Book) data.getSerializableExtra(Constants.EXTRA_BOOK_OBJECT);
 
 			if (resultCode == Activity.RESULT_OK && requestCode == Constants.BOOK_ADD) {
-				List<Book> books = expandableListDetail.get(book.genre);
 
-				if (books == null) { // create a new genre if it doesn't exists yet
-					books = new ArrayList<Book>();
-					expandableListDetail.put(book.genre, books);
-					expandableListId.add(book.genre);
-				}
-
-				books.add(book);
+			    Shelf.addBook(expandableListDetail, expandableListId, book);
 
 				Log.d(TAG, "added book " + book);
 
 				Snackbar.make(mainView, "Book added", Snackbar.LENGTH_LONG)
-						.setAction("Action", null).show();
+						.setAction("Action", null)
+                        .show();
 
 			} else if (resultCode == Activity.RESULT_OK && requestCode == Constants.BOOK_EDIT) {
-				List<Book> books = expandableListDetail.get(book.genre);
 
-				if (books == null) { // create a new genre if it doesn't exists yet
-					books = new ArrayList<Book>();
-					expandableListDetail.put(book.genre, books);
-					expandableListId.add(book.genre);
-				}
 
-				for (String genre : expandableListId) {
-					List<Book> bookList = expandableListDetail.get(genre); //*nicoli is gay :)) - Andy
-					bookList.remove(book);
-				}
-				books.add(book);
+			    Shelf.updateBook(expandableListDetail,expandableListId, book);
 
 				Log.d(TAG, "edited book " + book);
 
 				Snackbar.make(mainView, "Book edited", Snackbar.LENGTH_LONG)
-						.setAction("Action", null).show();
-			}
+						.setAction("Action", null)
+                        .show();
+
+			} else if (resultCode == Activity.RESULT_OK && requestCode == Constants.BOOK_DELETE) {
+
+                Shelf.removeBook(expandableListDetail,expandableListId,book);
+
+                Log.d(TAG, "Removed book " + book);
+                Snackbar.make(mainView, "Book removed", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null)
+                        .show();
+		 	    }
+        }
 
 			expandableListAdapter.notifyDataSetChanged();
-		}
+    }
 
-	}
 }
+

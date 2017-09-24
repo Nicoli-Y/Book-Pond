@@ -21,9 +21,14 @@ public class ShelfTests {
         Map<String, List<Book>> expectedGenreAndBooks = new HashMap<>();
         expectedGenreAndBooks.put("genre", Arrays.asList(book));
 
-        Map<String, List<Book>> resultGenreAndBooks = Shelf.addBook(genreAndBooks, book);
+        List<String> genres = new ArrayList<>(genreAndBooks.keySet());
+
+        Map<String, List<Book>> resultGenreAndBooks = Shelf.addBook(genreAndBooks, genres, book);
 
         assertArrayEquals(expectedGenreAndBooks.get("genre").toArray(), resultGenreAndBooks.get("genre").toArray());
+
+        String[] expectedGenres = {"genre"};
+        assertArrayEquals(expectedGenres, genres.toArray());
     }
 
     @Test
@@ -41,7 +46,9 @@ public class ShelfTests {
         books.add(book2);
         genreAndBooks.put("genre", books);
 
-        Map<String, List<Book>> resultGenreAndBooks = Shelf.removeBook(genreAndBooks, book2);
+        List<String> genres = new ArrayList<>(genreAndBooks.keySet());
+
+        Map<String, List<Book>> resultGenreAndBooks = Shelf.removeBook(genreAndBooks, genres, book2);
 
         assertArrayEquals(expectedGenreAndBooks.get("genre").toArray(), resultGenreAndBooks.get("genre").toArray());
     }
@@ -63,7 +70,9 @@ public class ShelfTests {
         books.add(book2);
         genreAndBooks.put("genre", books);
 
-        Map<String, List<Book>> resultGenreAndBooks = Shelf.updateBook(genreAndBooks, updatedBook2);
+        List<String> genres = new ArrayList<>(genreAndBooks.keySet());
+
+        Map<String, List<Book>> resultGenreAndBooks = Shelf.updateBook(genreAndBooks, genres, updatedBook2);
 
         List<String> expectedTitles = getTitles(expectedGenreAndBooks.get("genre"));
         List<String> resultTitles = getTitles(resultGenreAndBooks.get("genre"));
