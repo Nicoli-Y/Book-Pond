@@ -40,9 +40,10 @@ public class MainActivity extends AppCompatActivity {
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-
 				Intent intent = new Intent(MainActivity.this, AddEditBookActivity.class);
 				intent.putExtra(Constants.EXTRA_BOOK_OBJECT, new Book(UUID.randomUUID().toString(), null, null));
+				intent.putExtra(Constants.EXTRA_IS_DELETE, false);
+
 				overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
 				startActivityForResult(intent, Constants.BOOK_ADD);
@@ -93,28 +94,26 @@ public class MainActivity extends AppCompatActivity {
                         .show();
 
 			} else if (resultCode == Activity.RESULT_OK && requestCode == Constants.BOOK_EDIT) {
+				boolean isDelete = data.getBooleanExtra(Constants.EXTRA_IS_DELETE, false);
+				if (isDelete){
+					Shelf.removeBook(expandableListDetail,expandableListId,book);
 
+					Log.d(TAG, "Removed book " + book);
+					Snackbar.make(mainView, "Book removed", Snackbar.LENGTH_LONG)
+							.setAction("Action", null)
+							.show();
+				} else {
+					Shelf.updateBook(expandableListDetail, expandableListId, book);
+					Log.d(TAG, "edited book " + book);
 
-			    Shelf.updateBook(expandableListDetail,expandableListId, book);
-
-				Log.d(TAG, "edited book " + book);
-
-				Snackbar.make(mainView, "Book edited", Snackbar.LENGTH_LONG)
-						.setAction("Action", null)
-                        .show();
-
-			} else if (resultCode == Activity.RESULT_OK && requestCode == Constants.BOOK_DELETE) {
-
-                Shelf.removeBook(expandableListDetail,expandableListId,book);
-
-                Log.d(TAG, "Removed book " + book);
-                Snackbar.make(mainView, "Book removed", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .show();
-		 	    }
+					Snackbar.make(mainView, "Book edited", Snackbar.LENGTH_LONG)
+							.setAction("Action", null)
+							.show();
+				}
+			}
         }
 
-			expandableListAdapter.notifyDataSetChanged();
+		expandableListAdapter.notifyDataSetChanged();
     }
 
 }

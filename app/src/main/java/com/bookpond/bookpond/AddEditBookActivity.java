@@ -3,10 +3,10 @@ package com.bookpond.bookpond;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class AddEditBookActivity extends AppCompatActivity {
@@ -22,10 +22,14 @@ public class AddEditBookActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_edit_book);
 
-		View view = findViewById(R.id.add_edit_book_fragment);
-
 		Intent intent = getIntent();
+
 		book = (Book) intent.getSerializableExtra(Constants.EXTRA_BOOK_OBJECT);
+
+		Button deleteButton  = (Button) findViewById(R.id.button_delete);
+		boolean isDelete = intent.getBooleanExtra(Constants.EXTRA_IS_DELETE, true);
+
+		if (!isDelete) deleteButton.setVisibility(View.GONE);
 
 		title = (TextView) findViewById(R.id.edit_title);
 		title.setText(book.title);
@@ -34,6 +38,17 @@ public class AddEditBookActivity extends AppCompatActivity {
 		genre.setText(book.genre);
 	}
 
+    public void delete(View view) {
+
+		Intent intent = new Intent();
+		intent.putExtra(Constants.EXTRA_BOOK_OBJECT, book);
+		intent.putExtra(Constants.EXTRA_IS_DELETE, true);
+
+		setResult(Activity.RESULT_OK, intent);
+
+		Log.d(TAG, "book deleted");
+		finish();
+	}
 	public void save(View view) {
 
 
