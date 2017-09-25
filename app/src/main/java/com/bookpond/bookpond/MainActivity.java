@@ -3,8 +3,12 @@ package com.bookpond.bookpond;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,7 +19,6 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,20 +39,11 @@ public class MainActivity extends AppCompatActivity {
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
-		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-		fab.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Intent intent = new Intent(MainActivity.this, AddEditBookActivity.class);
-				intent.putExtra(Constants.EXTRA_BOOK_OBJECT, new Book(UUID.randomUUID().toString(), null, null));
-				intent.putExtra(Constants.EXTRA_IS_DELETE, false);
+		ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+		setupViewPager(viewPager);
 
-				overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-
-				startActivityForResult(intent, Constants.BOOK_ADD);
-
-			}
-		});
+		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+		tabLayout.setupWithViewPager(viewPager);
 	}
 
 	@Override
@@ -78,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
-		View mainView = findViewById(R.id.fragment);
+		View mainView = findViewById(R.id.fragment_my_books);
 
 		if (data != null) {
 			Book book = (Book) data.getSerializableExtra(Constants.EXTRA_BOOK_OBJECT);
@@ -116,5 +110,41 @@ public class MainActivity extends AppCompatActivity {
 		expandableListAdapter.notifyDataSetChanged();
     }
 
+	private void setupViewPager(ViewPager viewPager) {
+		ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+		adapter.addFragment(new HomeFragment(), "Home");
+		adapter.addFragment(new MyBooksFragment(), "My Books");
+		viewPager.setAdapter(adapter);
+	}
+
+	class ViewPagerAdapter extends FragmentPagerAdapter {
+		private final List<Fragment> mFragmentList = new ArrayList<>();
+		private final List<String> mFragmentTitleList = new ArrayList<>();
+
+		public ViewPagerAdapter(FragmentManager manager) {
+			super(manager);
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+			return mFragmentList.get(position);
+		}
+
+		@Override
+		public int getCount() {
+			return mFragmentList.size();
+		}
+
+		public void addFragment(Fragment fragment, String title) {
+			mFragmentList.add(fragment);
+			mFragmentTitleList.add(title);
+		}
+
+		@Override
+		public CharSequence getPageTitle(int position) {
+			return mFragmentTitleList.get(position);
+		}
+	}
 }
+
 

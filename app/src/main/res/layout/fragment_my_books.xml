@@ -1,14 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/fragment_my_books"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:showIn="@layout/activity_main"
-                tools:context="com.bookpond.bookpond.MainActivityFragment">
-
+                android:paddingBottom="@dimen/activity_vertical_margin">
 
     <ExpandableListView
             android:id="@+id/expandableListView"
@@ -17,5 +16,15 @@
             android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
             android:divider="@android:color/darker_gray"
             android:dividerHeight="0.5dp" />
+
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_input_add"
+            android:clickable="true"
+            android:contextClickable="true" />
 
 </RelativeLayout>

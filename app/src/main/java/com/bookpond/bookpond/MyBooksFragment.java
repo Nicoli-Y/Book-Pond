@@ -1,37 +1,32 @@
 package com.bookpond.bookpond;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class MyBooksFragment extends Fragment {
 
-	ExpandableListView expandableListView;
-	View view;
-
-	public MainActivityFragment() {
+	public MyBooksFragment() {
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 
-		view = inflater.inflate(R.layout.fragment_main, container, false);
-
-		return inflater.inflate(R.layout.fragment_main, container, false);
+		return inflater.inflate(R.layout.fragment_my_books, container, false);
 	}
 
 	@Override
@@ -42,14 +37,14 @@ public class MainActivityFragment extends Fragment {
 		final Map<String, List<Book>> expandableListDetail = activity.expandableListDetail;
 		final List<String> expandableListId = activity.expandableListId;
 
-		expandableListView = (ExpandableListView) view.findViewById(R.id.expandableListView);
+		ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.expandableListView);
 		activity.expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListId, expandableListDetail);
 		expandableListView.setAdapter(activity.expandableListAdapter);
 		expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
 			@Override
 			public void onGroupExpand(int groupPosition) {
-				Toast.makeText(MainActivityFragment.this.getContext().getApplicationContext(),
+				Toast.makeText(MyBooksFragment.this.getContext().getApplicationContext(),
 						"Opened " + expandableListId.get(groupPosition) + " :)",
 						Toast.LENGTH_SHORT).show();
 			}
@@ -59,7 +54,7 @@ public class MainActivityFragment extends Fragment {
 
 			@Override
 			public void onGroupCollapse(int groupPosition) {
-				Toast.makeText(MainActivityFragment.this.getContext().getApplicationContext(),
+				Toast.makeText(MyBooksFragment.this.getContext().getApplicationContext(),
 						"Closed " + expandableListId.get(groupPosition) + " :)",
 						Toast.LENGTH_SHORT).show();
 
@@ -74,13 +69,27 @@ public class MainActivityFragment extends Fragment {
 						expandableListId.get(groupPosition)).get(
 						childPosition);
 
-				Intent intent = new Intent(MainActivityFragment.this.getContext(), AddEditBookActivity.class);
+				Intent intent = new Intent(MyBooksFragment.this.getContext(), AddEditBookActivity.class);
 				intent.putExtra(Constants.EXTRA_BOOK_OBJECT, book);
 
-				MainActivityFragment.this.getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-				MainActivityFragment.this.getActivity().startActivityForResult(intent, Constants.BOOK_EDIT);
+				MyBooksFragment.this.getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+				MyBooksFragment.this.getActivity().startActivityForResult(intent, Constants.BOOK_EDIT);
 
 				return false;
+			}
+		});
+
+		FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+		fab.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent intent = new Intent(MyBooksFragment.this.getContext(), AddEditBookActivity.class);
+				intent.putExtra(Constants.EXTRA_BOOK_OBJECT, new Book(UUID.randomUUID().toString(), null, null));
+				intent.putExtra(Constants.EXTRA_IS_DELETE, false);
+
+				MyBooksFragment.this.getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+				MyBooksFragment.this.getActivity().startActivityForResult(intent, Constants.BOOK_ADD);
+
 			}
 		});
 
