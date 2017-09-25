@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+
 				Intent intent = new Intent(MainActivity.this, AddEditBookActivity.class);
 				intent.putExtra(Constants.EXTRA_BOOK_OBJECT, new Book(UUID.randomUUID().toString(), null, null));
 				intent.putExtra(Constants.EXTRA_IS_DELETE, false);
@@ -94,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
                         .show();
 
 			} else if (resultCode == Activity.RESULT_OK && requestCode == Constants.BOOK_EDIT) {
+				//This is where books are edited. this can be both removing or changing the name of the book/genre
+				//
+
 				boolean isDelete = data.getBooleanExtra(Constants.EXTRA_IS_DELETE, false);
 				if (isDelete){
 					Shelf.removeBook(expandableListDetail,expandableListId,book);

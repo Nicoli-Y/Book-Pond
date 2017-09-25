@@ -12,6 +12,12 @@ public final class Book implements Serializable {
         super();
     }
 
+    /**
+     *
+     * @param id the id of the book
+     * @param title title of the book
+     * @param genre the genre of the book
+     */
     public Book (String id, String title, String genre){
         this();
 
@@ -25,6 +31,11 @@ public final class Book implements Serializable {
         return id + " : " + title + " : " + genre;
     }
 
+    /**
+     *
+     * @param that this is how we make books "equals" to each other.By using the id
+     * if the id is the same then it must mean the book is the same.
+     */
     @Override
     public boolean equals(Object that){
         if (that instanceof Book) {

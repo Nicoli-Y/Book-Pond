@@ -66,6 +66,7 @@ public class MainActivityFragment extends Fragment {
 			}
 		});
 
+		//this is where we get the book data from the json file and transfer it to the xml
 		expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 			@Override
 			public boolean onChildClick(ExpandableListView parent, View v,
