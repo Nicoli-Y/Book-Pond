@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+// this is the code of the view of add_edit_book.xml
 public class AddEditBookActivity extends AppCompatActivity {
 
 	private static final String TAG = AddEditBookActivity.class.getCanonicalName();
@@ -26,6 +26,8 @@ public class AddEditBookActivity extends AppCompatActivity {
 
 		book = (Book) intent.getSerializableExtra(Constants.EXTRA_BOOK_OBJECT);
 
+		//removing the button from the adding screen. instead of creating a new screen the remove
+		// button is removed if isdelete is false/(!isdelete)
 		Button deleteButton  = (Button) findViewById(R.id.button_delete);
 		boolean isDelete = intent.getBooleanExtra(Constants.EXTRA_IS_DELETE, true);
 
@@ -50,7 +52,6 @@ public class AddEditBookActivity extends AppCompatActivity {
 		finish();
 	}
 	public void save(View view) {
-
 
 		book.title = title.getText().toString();
 		book.genre = genre.getText().toString();

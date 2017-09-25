@@ -88,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
                         .show();
 
 			} else if (resultCode == Activity.RESULT_OK && requestCode == Constants.BOOK_EDIT) {
+				//This is where books are edited. this can be both removing or changing the name of the book/genre
+				//
+
 				boolean isDelete = data.getBooleanExtra(Constants.EXTRA_IS_DELETE, false);
 				if (isDelete){
 					Shelf.removeBook(expandableListDetail,expandableListId,book);
