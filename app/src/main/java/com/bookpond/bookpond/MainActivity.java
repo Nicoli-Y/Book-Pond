@@ -27,12 +27,14 @@ public class MainActivity extends AppCompatActivity {
 	Map<String, List<Book>> expandableListDetail;
 	List<String> expandableListId;
 	CustomExpandableListAdapter expandableListAdapter;
+	List<Book> availableBooks;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		expandableListDetail = ExpandableListDataPump.getData(getAssets());
+		availableBooks = DataPump.getMyBookData(getAssets());
+		expandableListDetail = DataPump.getMyGenreAndBooksData(getAssets());
 		expandableListId = new ArrayList<>(expandableListDetail.keySet());
 
 		setContentView(R.layout.activity_main);
@@ -114,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 	private void setupViewPager(ViewPager viewPager) {
+		// Adding fragments
 		ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 		adapter.addFragment(new HomeFragment(), "Home");
 		adapter.addFragment(new MyBooksFragment(), "My Books");

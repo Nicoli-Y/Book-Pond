@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.List;
+
 
 public class HomeFragment extends Fragment{
 
@@ -24,10 +26,13 @@ public class HomeFragment extends Fragment{
 							 Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		View view = inflater.inflate(R.layout.fragment_home, container, false);
-		String[] testItems = {"item 1", "item 2", "item 3"};
+		MainActivity activity = (MainActivity) getActivity();
+		final List<Book> availableBooks = activity.availableBooks;
+
+		List<String> testItems = Shelf.getTitles(availableBooks);
 
 		ListView listView= (ListView) view.findViewById((R.id.homeMenu));
-		ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
+		ArrayAdapter<String> listViewAdapter = new ArrayAdapter<>(
 				getActivity(),
 				android.R.layout.simple_list_item_1,
 				testItems

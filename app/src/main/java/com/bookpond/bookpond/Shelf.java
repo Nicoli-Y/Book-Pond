@@ -60,5 +60,12 @@ public final class Shelf {
         return genreAndBooks;
     }
 
+	public static List<String> getTitles(List<Book> bookList){
+		List<String> titles = new ArrayList<>();
+		for ( Book aBook : bookList) {
+			titles.add(aBook.title);
+		}
+		return titles;
+	}
 
 }

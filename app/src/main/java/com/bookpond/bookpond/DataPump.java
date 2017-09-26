@@ -1,6 +1,7 @@
 package com.bookpond.bookpond;
 
 import android.content.res.AssetManager;
+import android.util.Log;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimaps;
@@ -10,10 +11,27 @@ import java.util.*;
 import com.google.common.base.Function;
 import org.apache.commons.io.IOUtils;
 
-public class ExpandableListDataPump {
+public class DataPump {
 
-	public static Map<String, List<Book>> getData(AssetManager assetManager) {
-		Map<String, List<Book>> expandableListDetail;
+	private static final String TAG = DataPump.class.getCanonicalName();
+
+	public static List<Book> getMyBookData(AssetManager assetManager) {
+
+		Shelf shelf;
+		try {
+			String jsonStr = IOUtils.toString(assetManager.open("AvailableBooks.json"), "UTF-8");
+
+			ObjectMapper mapper = new ObjectMapper();
+			shelf = mapper.readValue(jsonStr, Shelf.class);
+		} catch (Exception e) {
+			Log.e(TAG, "error in getting data", e);
+			shelf = new Shelf();
+		}
+
+		return shelf.books;
+	}
+	public static Map<String, List<Book>> getMyGenreAndBooksData(AssetManager assetManager) {
+		Map<String, List<Book>> genreAndBooks;
 
 		Shelf books;
 		try {
@@ -22,6 +40,7 @@ public class ExpandableListDataPump {
 			ObjectMapper mapper = new ObjectMapper();
 			books = mapper.readValue(jsonStr, Shelf.class);
 		} catch (Exception e) {
+			Log.e(TAG, "error in getting data", e);
 			books = new Shelf();
 		}
 
@@ -35,10 +54,11 @@ public class ExpandableListDataPump {
 		ArrayListMultimap<String, Book> index =
 				ArrayListMultimap.create(Multimaps.index(books.books, sameGenre));
 
-		expandableListDetail = new HashMap<>(Multimaps.asMap(index));
+		genreAndBooks = new HashMap<>(Multimaps.asMap(index));
 
 
-		return expandableListDetail;
+		return genreAndBooks;
 	}
+
 
 }

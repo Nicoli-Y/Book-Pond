@@ -1,0 +1,19 @@
+{
+  "books": [
+    {
+      "title": "testbook1",
+      "genre": "Psychological",
+      "id": "1"
+    },
+    {
+      "title": "testbook2",
+      "genre": "Science Fiction",
+      "id": "2"
+    },
+    {
+      "title": "testbook3",
+      "genre": "Horror",
+      "id": "3"
+    }
+  ]
+}
