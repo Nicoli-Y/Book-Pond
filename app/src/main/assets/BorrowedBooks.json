@@ -1,0 +1,19 @@
+{
+  "books": [
+    {
+      "title": "testbookborrowed1",
+      "genre": "Drama",
+      "id": "1"
+    },
+    {
+      "title": "testbookborrowed2",
+      "genre": "Satire",
+      "id": "2"
+    },
+    {
+      "title": "testbookborrowed3",
+      "genre": "Action and Adventure",
+      "id": "3"
+    }
+  ]
+}

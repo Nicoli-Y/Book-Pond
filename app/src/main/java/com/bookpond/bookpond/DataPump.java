@@ -15,6 +15,21 @@ public class DataPump {
 
 	private static final String TAG = DataPump.class.getCanonicalName();
 
+	public static List<Book> getMyBorrowedBookData(AssetManager assetManager) {
+
+		Shelf shelf;
+		try {
+			String jsonStr = IOUtils.toString(assetManager.open("BorrowedBooks.json"), "UTF-8");
+
+			ObjectMapper mapper = new ObjectMapper();
+			shelf = mapper.readValue(jsonStr, Shelf.class);
+		} catch (Exception e) {
+			Log.e(TAG, "error in getting data", e);
+			shelf = new Shelf();
+		}
+
+		return shelf.books;
+	}
 	public static List<Book> getMyBookData(AssetManager assetManager) {
 
 		Shelf shelf;

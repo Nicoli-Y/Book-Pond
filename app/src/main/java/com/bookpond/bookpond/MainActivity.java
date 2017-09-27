@@ -28,11 +28,13 @@ public class MainActivity extends AppCompatActivity {
 	List<String> expandableListId;
 	CustomExpandableListAdapter expandableListAdapter;
 	List<Book> availableBooks;
+	List<Book> borrowedBooks;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		borrowedBooks = DataPump.getMyBorrowedBookData(getAssets());
 		availableBooks = DataPump.getMyBookData(getAssets());
 		expandableListDetail = DataPump.getMyGenreAndBooksData(getAssets());
 		expandableListId = new ArrayList<>(expandableListDetail.keySet());
@@ -120,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
 		ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 		adapter.addFragment(new HomeFragment(), "Home");
 		adapter.addFragment(new MyBooksFragment(), "My Books");
+		adapter.addFragment(new BorrowFragment(), "Borrowed books");
 		viewPager.setAdapter(adapter);
 	}
 
