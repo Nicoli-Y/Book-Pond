@@ -3,17 +3,20 @@
     {
       "title": "testbook1",
       "genre": "Psychological",
-      "id": "1"
+      "id": "1",
+      "imagePath" : "akame_ga_kill"
     },
     {
       "title": "testbook2",
       "genre": "Science Fiction",
-      "id": "2"
+      "id": "2",
+      "imagePath" : "harry_potter"
     },
     {
       "title": "testbook3",
       "genre": "Horror",
-      "id": "3"
+      "id": "3",
+      "imagePath" : "diary_of_a_wimpy_kid"
     }
   ]
 }

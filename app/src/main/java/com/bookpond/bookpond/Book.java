@@ -7,18 +7,18 @@ public final class Book implements Serializable {
     public String title;
     public String genre;
     public String id;
+    public String imagePath;
 
     public Book() {
         super();
     }
 
     /**
-     *
-     * @param id the id of the book
+     *@param id the id of the book
      * @param title title of the book
      * @param genre the genre of the book
      */
-    public Book (String id, String title, String genre){
+    public Book(String id, String title, String genre){
         this();
 
         this.id = id;
@@ -28,7 +28,7 @@ public final class Book implements Serializable {
 
     @Override
     public String toString() {
-        return id + " : " + title + " : " + genre;
+        return id + " : " + title + " : " + genre +  " : " + imagePath;
     }
 
     /**
