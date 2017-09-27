@@ -26,18 +26,14 @@ public class HomeFragment extends Fragment{
 							 Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		View view = inflater.inflate(R.layout.fragment_home, container, false);
+
 		MainActivity activity = (MainActivity) getActivity();
 		final List<Book> availableBooks = activity.availableBooks;
 
-		List<String> testItems = Shelf.getTitles(availableBooks);
+		ListView listView = (ListView) view.findViewById(R.id.homeMenu) ;
 
-		ListView listView= (ListView) view.findViewById((R.id.homeMenu));
-		ArrayAdapter<String> listViewAdapter = new ArrayAdapter<>(
-				getActivity(),
-				android.R.layout.simple_list_item_1,
-				testItems
-		);
-		listView.setAdapter((listViewAdapter));
+		ArrayAdapter listAdapter = new BookArrayAdapter(activity, availableBooks);
+		listView.setAdapter(listAdapter);
 
 		return view;
 	}
