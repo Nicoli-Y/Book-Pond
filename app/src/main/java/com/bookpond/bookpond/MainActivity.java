@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 	Map<String, List<Book>> expandableListDetail;
 	List<String> expandableListId;
 	CustomExpandableListAdapter expandableListAdapter;
+	ArrayAdapter listAdapter;
+
 	List<Book> availableBooks;
 	List<Book> borrowedBooks;
 
@@ -116,13 +119,26 @@ public class MainActivity extends AppCompatActivity {
 
 		expandableListAdapter.notifyDataSetChanged();
     }
+	private ArrayAdapter<String> setupListAdapter(List<Book> book) {
+		List<String> testItems = Shelf.getTitles(book);
+		return new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, testItems);
+	}
+
+    // add a method to add a book into the borrowBook list
+	// tell the borrowed list adapter the data has changed
 
 	private void setupViewPager(ViewPager viewPager) {
 		// Adding fragments
 		ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-		adapter.addFragment(new HomeFragment(), "Home");
+		adapter.addFragment(new AvailableFragment(), "Home");
 		adapter.addFragment(new MyBooksFragment(), "My Books");
-		adapter.addFragment(new BorrowFragment(), "Borrowed books");
+		// setupListAdapter
+		// new BorrowFragment(listAdapater)
+		BorrowFragment borrowFragment = new BorrowFragment();
+		listAdapter = setupListAdapter(borrowedBooks);
+		borrowFragment.setListViewAdapter(listAdapter);
+		adapter.addFragment(borrowFragment, "Borrowed books");
+
 		viewPager.setAdapter(adapter);
 	}
 

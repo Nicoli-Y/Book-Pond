@@ -12,7 +12,14 @@ import java.util.List;
 
 
 public class BorrowFragment extends Fragment {
+
+	private ArrayAdapter<String> listViewAdapter;
+
 	public BorrowFragment() {
+	}
+
+	public void setListViewAdapter(ArrayAdapter<String> listViewAdapter ) {
+		this.listViewAdapter = listViewAdapter;
 	}
 
 	@Override
@@ -24,14 +31,8 @@ public class BorrowFragment extends Fragment {
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		View view = inflater.inflate(R.layout.fragment_borrow, container, false);
-		MainActivity activity = (MainActivity) getActivity();
-		final List<Book> borrowedBooks = activity.borrowedBooks;
-
-		List<String> testItems = Shelf.getTitles(borrowedBooks);
 
 		ListView listView = (ListView) view.findViewById((R.id.borrowMenu));
-
-		ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, testItems);
 		listView.setAdapter(listViewAdapter);
 		return view;
 	}

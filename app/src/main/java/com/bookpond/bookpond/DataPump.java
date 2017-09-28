@@ -30,15 +30,15 @@ public class DataPump {
 	public static Map<String, List<Book>> getMyGenreAndBooksData(AssetManager assetManager) {
 		Map<String, List<Book>> genreAndBooks;
 
-		Shelf books;
+		Shelf shelf;
 		try {
 			String jsonStr = IOUtils.toString(assetManager.open("Books.json"), "UTF-8");
 
 			ObjectMapper mapper = new ObjectMapper();
-			books = mapper.readValue(jsonStr, Shelf.class);
+			shelf = mapper.readValue(jsonStr, Shelf.class);
 		} catch (Exception e) {
 			Log.e(TAG, "error in getting data", e);
-			books = new Shelf();
+			shelf = new Shelf();
 		}
 
 		Function<Book, String> sameGenre = new Function<Book, String>() {
@@ -49,7 +49,7 @@ public class DataPump {
 		};
 
 		ArrayListMultimap<String, Book> index =
-				ArrayListMultimap.create(Multimaps.index(books.books, sameGenre));
+				ArrayListMultimap.create(Multimaps.index(shelf.books, sameGenre));
 
 		genreAndBooks = new HashMap<>(Multimaps.asMap(index));
 
