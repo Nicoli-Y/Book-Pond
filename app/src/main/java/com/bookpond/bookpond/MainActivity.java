@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 	Map<String, List<Book>> expandableListDetail;
 	List<String> expandableListId;
 	CustomExpandableListAdapter expandableListAdapter;
-	ArrayAdapter listAdapter;
+	BookArrayAdapter listAdapter;
 
 	List<Book> availableBooks;
 	List<Book> borrowedBooks;
@@ -119,10 +119,6 @@ public class MainActivity extends AppCompatActivity {
 
 		expandableListAdapter.notifyDataSetChanged();
     }
-	private ArrayAdapter<String> setupListAdapter(List<Book> book) {
-		List<String> testItems = Shelf.getTitles(book);
-		return new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, testItems);
-	}
 
     // add a method to add a book into the borrowBook list
 	// tell the borrowed list adapter the data has changed
@@ -135,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 		// setupListAdapter
 		// new BorrowFragment(listAdapater)
 		BorrowFragment borrowFragment = new BorrowFragment();
-		listAdapter = setupListAdapter(borrowedBooks);
+		listAdapter = new BookArrayAdapter(this, R.layout.fragment_borrow, borrowedBooks);
 		borrowFragment.setListViewAdapter(listAdapter);
 		adapter.addFragment(borrowFragment, "Borrowed books");
 

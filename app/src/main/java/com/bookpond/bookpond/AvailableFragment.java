@@ -32,7 +32,7 @@ public class AvailableFragment extends Fragment{
 
 		ListView listView = (ListView) view.findViewById(R.id.homeMenu) ;
 
-		ArrayAdapter listAdapter = new BookArrayAdapter(activity, availableBooks);
+		ArrayAdapter listAdapter = new BookArrayAdapter(activity, R.layout.fragment_available_books, availableBooks);
 		listView.setAdapter(listAdapter);
 
 		return view;

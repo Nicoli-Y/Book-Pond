@@ -13,12 +13,12 @@ import java.util.List;
 
 public class BorrowFragment extends Fragment {
 
-	private ArrayAdapter<String> listViewAdapter;
+	private ArrayAdapter<String> listViewAdapter; // -> Book Arr Adapter
 
 	public BorrowFragment() {
 	}
 
-	public void setListViewAdapter(ArrayAdapter<String> listViewAdapter ) {
+	public void setListViewAdapter(BookArrayAdapter listViewAdapter ) {
 		this.listViewAdapter = listViewAdapter;
 	}
 
