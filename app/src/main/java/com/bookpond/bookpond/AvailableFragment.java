@@ -13,13 +13,19 @@ import java.util.List;
 
 public class AvailableFragment extends Fragment{
 
+	private BookArrayAdapter listViewAdapter;
+
+
 	public AvailableFragment() {
 	}
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public void setListViewAdapter(BookArrayAdapter listViewAdapter ) {
+		this.listViewAdapter = listViewAdapter;
 	}
+
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,13 +33,8 @@ public class AvailableFragment extends Fragment{
 		// Inflate the layout for this fragment
 		View view = inflater.inflate(R.layout.fragment_available_books, container, false);
 
-		MainActivity activity = (MainActivity) getActivity();
-		final List<Book> availableBooks = activity.availableBooks;
-
 		ListView listView = (ListView) view.findViewById(R.id.homeMenu) ;
-
-		ArrayAdapter listAdapter = new BookArrayAdapter(activity, R.layout.fragment_available_books, availableBooks);
-		listView.setAdapter(listAdapter);
+		listView.setAdapter(listViewAdapter);
 
 		return view;
 	}

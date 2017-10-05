@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +27,12 @@ public class MainActivity extends AppCompatActivity {
 	Map<String, List<Book>> expandableListDetail;
 	List<String> expandableListId;
 	CustomExpandableListAdapter expandableListAdapter;
-	BookArrayAdapter listAdapter;
 
-	List<Book> availableBooks;
+	BookArrayAdapter borrowListAdapter;
 	List<Book> borrowedBooks;
+
+	BookArrayAdapter availableListAdapter;
+	List<Book> availableBooks;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -120,19 +121,33 @@ public class MainActivity extends AppCompatActivity {
 		expandableListAdapter.notifyDataSetChanged();
     }
 
-    // add a method to add a book into the borrowBook list
+    // add a method to add a book
+	// add book the borrowBook list
 	// tell the borrowed list adapter the data has changed
+	public Book transferBook(Book transferBook){
+
+		borrowedBooks.add(transferBook);
+		borrowListAdapter.notifyDataSetChanged();
+
+		availableBooks.remove(transferBook);
+		availableListAdapter.notifyDataSetChanged();
+
+		return transferBook;
+	}
 
 	private void setupViewPager(ViewPager viewPager) {
 		// Adding fragments
 		ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-		adapter.addFragment(new AvailableFragment(), "Home");
+		AvailableFragment availableFragment = new AvailableFragment();
+		availableListAdapter = new BookArrayAdapter(this, R.layout.fragment_available_books, availableBooks, true);
+		availableFragment.setListViewAdapter(availableListAdapter);
+		adapter.addFragment(availableFragment, "Available books");
 		adapter.addFragment(new MyBooksFragment(), "My Books");
 		// setupListAdapter
-		// new BorrowFragment(listAdapater)
+		// new BorrowFragment(borrowListAdapter)
 		BorrowFragment borrowFragment = new BorrowFragment();
-		listAdapter = new BookArrayAdapter(this, R.layout.fragment_borrow, borrowedBooks);
-		borrowFragment.setListViewAdapter(listAdapter);
+		borrowListAdapter = new BookArrayAdapter(this, R.layout.fragment_borrow, borrowedBooks, false);
+		borrowFragment.setListViewAdapter(borrowListAdapter);
 		adapter.addFragment(borrowFragment, "Borrowed books");
 
 		viewPager.setAdapter(adapter);
