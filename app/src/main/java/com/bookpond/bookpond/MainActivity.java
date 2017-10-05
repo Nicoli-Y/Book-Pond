@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 	BookArrayAdapter availableListAdapter;
 	List<Book> availableBooks;
 
+	TabLayout tabLayout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,8 +51,9 @@ public class MainActivity extends AppCompatActivity {
 		ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 		setupViewPager(viewPager);
 
-		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+		tabLayout = (TabLayout) findViewById(R.id.tabs);
 		tabLayout.setupWithViewPager(viewPager);
+		setupTabIcons();
 	}
 
 	@Override
@@ -135,13 +137,20 @@ public class MainActivity extends AppCompatActivity {
 		return transferBook;
 	}
 
+	private void setupTabIcons(){
+		tabLayout.getTabAt(0).setIcon(R.drawable.available);
+		tabLayout.getTabAt(1).setIcon(R.drawable.my_books);
+		tabLayout.getTabAt(2).setIcon(R.drawable.booked);
+	}
 	private void setupViewPager(ViewPager viewPager) {
 		// Adding fragments
 		ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
 		AvailableFragment availableFragment = new AvailableFragment();
 		availableListAdapter = new BookArrayAdapter(this, R.layout.fragment_available_books, availableBooks, true);
 		availableFragment.setListViewAdapter(availableListAdapter);
 		adapter.addFragment(availableFragment, "Available books");
+
 		adapter.addFragment(new MyBooksFragment(), "My Books");
 		// setupListAdapter
 		// new BorrowFragment(borrowListAdapter)
