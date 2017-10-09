@@ -19,6 +19,7 @@ public class BorrowFragment extends Fragment {
 	}
 
 	public void setListViewAdapter(BookArrayAdapter listViewAdapter ) {
+		//Only for this class
 		this.listViewAdapter = listViewAdapter;
 	}
 
@@ -33,6 +34,7 @@ public class BorrowFragment extends Fragment {
 		View view = inflater.inflate(R.layout.fragment_borrow, container, false);
 
 		ListView listView = (ListView) view.findViewById((R.id.borrowMenu));
+		//Using the adapter that has been edited by BookArrayAdapter
 		listView.setAdapter(listViewAdapter);
 		return view;
 	}

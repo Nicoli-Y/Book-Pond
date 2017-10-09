@@ -13,6 +13,10 @@ import static org.junit.Assert.*;
 public class ShelfTests {
 
     @Test
+    /*
+    This shows that there is a set of data premade in the test file then testing the
+    addbook making an array equals to see if it has the right information
+    */
     public void shouldAddABookOnBlankGenre() {
         Map<String, List<Book>> genreAndBooks = new HashMap<>();
 
@@ -32,6 +36,10 @@ public class ShelfTests {
     }
 
     @Test
+    /*
+    Removing a book is also tested from the shelf class
+    */
+
     public void shouldRemoveABookOnAGenre() {
 
         Book book1 = new Book("1", "title", "genre");
@@ -55,6 +63,7 @@ public class ShelfTests {
 
     @Test
     public void shouldUpdateABookOnAGenre() {
+	    //updating a book needs to be also tested
 
         Book book1 = new Book("1", "title", "genre");
         Book book2 = new Book("2", "title2", "genre");
@@ -80,7 +89,7 @@ public class ShelfTests {
         assertArrayEquals(expectedTitles.toArray(), resultTitles.toArray());
 
     }
-
+// this is within the shelf class.
     public List<String> getTitles(List<Book> bookList){
         List<String> titles = new ArrayList<>();
         for ( Book aBook : bookList) {

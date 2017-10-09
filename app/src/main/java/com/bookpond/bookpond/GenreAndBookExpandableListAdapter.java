@@ -8,26 +8,25 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
+public class GenreAndBookExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private Context context;
-	private List<String> expandableListId;
-	private Map<String, List<Book>> expandableListDetail;
+	private List<String> genreList;
+	private Map<String, List<Book>> genreAndBookMap;
 
-	public CustomExpandableListAdapter(Context context, List<String> expandableListId,
-									   Map<String, List<Book>> expandableListDetail) {
+	public GenreAndBookExpandableListAdapter(Context context, List<String> genreList,
+	                                         Map<String, List<Book>> genreAndBookMap) {
 		this.context = context;
-		this.expandableListId = expandableListId;
-		this.expandableListDetail = expandableListDetail;
+		this.genreList = genreList;
+		this.genreAndBookMap = genreAndBookMap;
 	}
 
 	@Override
 	public Object getChild(int listPosition, int expandedListPosition) {
-		return this.expandableListDetail.get(this.expandableListId.get(listPosition))
+		return this.genreAndBookMap.get(this.genreList.get(listPosition))
 				.get(expandedListPosition);
 	}
 
@@ -53,18 +52,18 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public int getChildrenCount(int listPosition) {
-		return this.expandableListDetail.get(this.expandableListId.get(listPosition))
+		return this.genreAndBookMap.get(this.genreList.get(listPosition))
 				.size();
 	}
 
 	@Override
 	public Object getGroup(int listPosition) {
-		return this.expandableListId.get(listPosition);
+		return this.genreList.get(listPosition);
 	}
 
 	@Override
 	public int getGroupCount() {
-		return this.expandableListId.size();
+		return this.genreList.size();
 	}
 
 	@Override

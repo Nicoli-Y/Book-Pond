@@ -8,7 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-// this is the code of the view of add_edit_book.xml
+// this is the code of the view of add_edit_book.
+//* why is delete button in this class
 public class AddEditBookActivity extends AppCompatActivity {
 
 	private static final String TAG = AddEditBookActivity.class.getCanonicalName();

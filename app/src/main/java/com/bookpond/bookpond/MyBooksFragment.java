@@ -34,18 +34,18 @@ public class MyBooksFragment extends Fragment {
 		super.onViewCreated(view, savedInstanceState);
 
 		MainActivity activity = (MainActivity) getActivity();
-		final Map<String, List<Book>> expandableListDetail = activity.expandableListDetail;
-		final List<String> expandableListId = activity.expandableListId;
+		final Map<String, List<Book>> genreAndBookMap = activity.genreAndBookMap;
+		final List<String> genreList = activity.genreList;
 
 		ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.expandableListView);
-		activity.expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListId, expandableListDetail);
-		expandableListView.setAdapter(activity.expandableListAdapter);
+		activity.GenreAndBookExpandableListAdapter = new GenreAndBookExpandableListAdapter(this.getContext(), genreList, genreAndBookMap);
+		expandableListView.setAdapter(activity.GenreAndBookExpandableListAdapter);
 		expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
 			@Override
 			public void onGroupExpand(int groupPosition) {
 				Toast.makeText(MyBooksFragment.this.getContext().getApplicationContext(),
-						"Opened " + expandableListId.get(groupPosition) + " :)",
+						"Opened " + genreList.get(groupPosition) + " :)",
 						Toast.LENGTH_SHORT).show();
 			}
 		});
@@ -55,7 +55,7 @@ public class MyBooksFragment extends Fragment {
 			@Override
 			public void onGroupCollapse(int groupPosition) {
 				Toast.makeText(MyBooksFragment.this.getContext().getApplicationContext(),
-						"Closed " + expandableListId.get(groupPosition) + " :)",
+						"Closed " + genreList.get(groupPosition) + " :)",
 						Toast.LENGTH_SHORT).show();
 
 			}
@@ -66,8 +66,8 @@ public class MyBooksFragment extends Fragment {
 			@Override
 			public boolean onChildClick(ExpandableListView parent, View v,
 										int groupPosition, int childPosition, long id) {
-				Book book = expandableListDetail.get(
-						expandableListId.get(groupPosition)).get(
+				Book book = genreAndBookMap.get(
+						genreList.get(groupPosition)).get(
 						childPosition);
 
 				Intent intent = new Intent(MyBooksFragment.this.getContext(), AddEditBookActivity.class);

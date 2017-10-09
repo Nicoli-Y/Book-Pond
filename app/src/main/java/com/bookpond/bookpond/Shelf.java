@@ -50,6 +50,7 @@ public final class Shelf {
 	 * @param book the targeted book to be removed.
 	 * @return
 	 */
+	//** Genre needs to be used and deleting the genre
     public static Map<String, List<Book>> removeBook(Map<String, List<Book>> genreAndBooks, List<String> genres, Book book) {
 
         List<Book> bookList = genreAndBooks.get(book.genre);
@@ -59,7 +60,7 @@ public final class Shelf {
 
         return genreAndBooks;
     }
-
+//?
 	public static List<String> getTitles(List<Book> bookList){
 		List<String> titles = new ArrayList<>();
 		for ( Book aBook : bookList) {

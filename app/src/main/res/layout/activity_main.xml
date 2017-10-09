@@ -6,16 +6,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context="com.bookpond.bookpond.MainActivity">
+        tools:context="com.bookpond.bookpond.MainActivity"
+        >
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_below="@+id/appBarLayout"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="#FFE0B2"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
     </android.support.v4.view.ViewPager>
 
     <android.support.design.widget.AppBarLayout
@@ -28,17 +29,17 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            />
+            android:layout_height="wrap_content"
+            android:background="#FF3D00"
+            android:backgroundTint="#FF3D00"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent"
-            android:backgroundTint="@color/colorAccent"
+            android:layout_height="30dp"
+            android:background="@android:color/holo_blue_bright"
+            android:backgroundTint="#FB8C00"
             android:theme="@style/AppTheme.AppBarOverlay"
             app:tabIndicatorColor="@android:color/holo_red_dark"
             />

@@ -9,7 +9,7 @@ import org.apache.commons.io.IOUtils;
 import java.util.List;
 
 import static com.bookpond.bookpond.DataPump.TAG;
-
+//Method to get the Book Data
 public class GetBookData {
 	public static List<Book> getData(AssetManager assetManager, String books) {
 		Shelf shelf;

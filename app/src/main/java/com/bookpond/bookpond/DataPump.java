@@ -12,6 +12,8 @@ import com.google.common.base.Function;
 import org.apache.commons.io.IOUtils;
 
 public class DataPump {
+	//This class is used like a method to get all the data of books.
+	//This class is an adapted version of getData
 
 	public static final String TAG = DataPump.class.getCanonicalName();
 
@@ -31,16 +33,17 @@ public class DataPump {
 		Map<String, List<Book>> genreAndBooks;
 
 		Shelf shelf;
+		// This happens when there is an error or missing data instead of crashing it notifies there is an "Error in getting data"
 		try {
 			String jsonStr = IOUtils.toString(assetManager.open("Books.json"), "UTF-8");
 
 			ObjectMapper mapper = new ObjectMapper();
 			shelf = mapper.readValue(jsonStr, Shelf.class);
 		} catch (Exception e) {
-			Log.e(TAG, "error in getting data", e);
+			Log.e(TAG, "Error in getting data", e);
 			shelf = new Shelf();
 		}
-
+		// if its the same genre place the book with that list of books
 		Function<Book, String> sameGenre = new Function<Book, String>() {
 			@Override
 			public String apply(Book book) {

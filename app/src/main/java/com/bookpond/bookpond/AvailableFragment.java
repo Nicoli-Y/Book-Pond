@@ -18,7 +18,7 @@ public class AvailableFragment extends Fragment{
 
 	public AvailableFragment() {
 	}
-
+	//This creates separate listViewAdapters for each object that needs it
 	public void setListViewAdapter(BookArrayAdapter listViewAdapter ) {
 		this.listViewAdapter = listViewAdapter;
 	}

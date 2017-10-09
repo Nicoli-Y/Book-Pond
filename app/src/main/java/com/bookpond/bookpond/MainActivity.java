@@ -24,26 +24,28 @@ public class MainActivity extends AppCompatActivity {
 
 	private static final String TAG = MainActivity.class.getCanonicalName();
 
-	Map<String, List<Book>> expandableListDetail;
-	List<String> expandableListId;
-	CustomExpandableListAdapter expandableListAdapter;
-
+	//For the expandable listView
+	Map<String, List<Book>> genreAndBookMap;
+	List<String> genreList;
+	//The adapter is customised for the books instead of strings.
+	GenreAndBookExpandableListAdapter GenreAndBookExpandableListAdapter;
+	//Two separate adapters since different parameters for each list
 	BookArrayAdapter borrowListAdapter;
 	List<Book> borrowedBooks;
-
 	BookArrayAdapter availableListAdapter;
 	List<Book> availableBooks;
-
+	//Calling the TabLayout
 	TabLayout tabLayout;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		//Using the dataPump class it gathers the books from the json files
 		borrowedBooks = DataPump.getMyBorrowedBookData(getAssets());
 		availableBooks = DataPump.getMyBookData(getAssets());
-		expandableListDetail = DataPump.getMyGenreAndBooksData(getAssets());
-		expandableListId = new ArrayList<>(expandableListDetail.keySet());
-
+		genreAndBookMap = DataPump.getMyGenreAndBooksData(getAssets());
+		genreList = new ArrayList<>(genreAndBookMap.keySet());
+		//All of the necessary view code
 		setContentView(R.layout.activity_main);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-
+		//Listing actions of the editBookView (AddEditBookActivity)
 		View mainView = findViewById(R.id.fragment_my_books);
 
 		if (data != null) {
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
 			if (resultCode == Activity.RESULT_OK && requestCode == Constants.BOOK_ADD) {
 
-			    Shelf.addBook(expandableListDetail, expandableListId, book);
+			    Shelf.addBook(genreAndBookMap, genreList, book);
 
 				Log.d(TAG, "added book " + book);
 
@@ -103,14 +105,14 @@ public class MainActivity extends AppCompatActivity {
 
 				boolean isDelete = data.getBooleanExtra(Constants.EXTRA_IS_DELETE, false);
 				if (isDelete){
-					Shelf.removeBook(expandableListDetail,expandableListId,book);
+					Shelf.removeBook(genreAndBookMap, genreList,book);
 
 					Log.d(TAG, "Removed book " + book);
 					Snackbar.make(mainView, "Book removed", Snackbar.LENGTH_LONG)
 							.setAction("Action", null)
 							.show();
 				} else {
-					Shelf.updateBook(expandableListDetail, expandableListId, book);
+					Shelf.updateBook(genreAndBookMap, genreList, book);
 					Log.d(TAG, "edited book " + book);
 
 					Snackbar.make(mainView, "Book edited", Snackbar.LENGTH_LONG)
@@ -120,12 +122,10 @@ public class MainActivity extends AppCompatActivity {
 			}
         }
 
-		expandableListAdapter.notifyDataSetChanged();
+		GenreAndBookExpandableListAdapter.notifyDataSetChanged();
     }
 
-    // add a method to add a book
-	// add book the borrowBook list
-	// tell the borrowed list adapter the data has changed
+    // Notification for the view to refresh data
 	public Book transferBook(Book transferBook){
 
 		borrowedBooks.add(transferBook);
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
 		return transferBook;
 	}
-
+	//Creating Icons in each separate tab
 	private void setupTabIcons(){
 		tabLayout.getTabAt(0).setIcon(R.drawable.available);
 		tabLayout.getTabAt(1).setIcon(R.drawable.my_books);
@@ -152,8 +152,7 @@ public class MainActivity extends AppCompatActivity {
 		adapter.addFragment(availableFragment, "Available books");
 
 		adapter.addFragment(new MyBooksFragment(), "My Books");
-		// setupListAdapter
-		// new BorrowFragment(borrowListAdapter)
+
 		BorrowFragment borrowFragment = new BorrowFragment();
 		borrowListAdapter = new BookArrayAdapter(this, R.layout.fragment_borrow, borrowedBooks, false);
 		borrowFragment.setListViewAdapter(borrowListAdapter);
@@ -162,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
 		viewPager.setAdapter(adapter);
 	}
 
+	//Creating a customised adapter for the viewPager
 	class ViewPagerAdapter extends FragmentPagerAdapter {
 		private final List<Fragment> mFragmentList = new ArrayList<>();
 		private final List<String> mFragmentTitleList = new ArrayList<>();
