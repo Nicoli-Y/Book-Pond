@@ -19,12 +19,11 @@ public class DataPump {
 
 	public static List<Book> getMyBorrowedBookData(AssetManager assetManager) {
 
-
 		List<Book> borrowedBooks = GetBookData.getData(assetManager, "BorrowedBooks");
 		return borrowedBooks;
 
 	}
-	public static List<Book> getMyBookData(AssetManager assetManager) {
+	public static List<Book> getAvailableBookData(AssetManager assetManager) {
 
 		List<Book> AvailableBooks = GetBookData.getData(assetManager, "AvailableBooks");
 		return AvailableBooks;

@@ -33,12 +33,12 @@ public class AddEditBookActivity extends AppCompatActivity {
 		boolean isDelete = intent.getBooleanExtra(Constants.EXTRA_IS_DELETE, true);
 
 		if (!isDelete) deleteButton.setVisibility(View.GONE);
-
+		//setting the data values
 		title = (TextView) findViewById(R.id.edit_title);
-		title.setText(book.title);
+		if (book.title != ""){title.setText(book.title);}
 
 		genre = (TextView) findViewById(R.id.edit_genre);
-		genre.setText(book.genre);
+		if (book.genre != ""){genre.setText(book.genre);}
 	}
 
     public void delete(View view) {
@@ -53,7 +53,7 @@ public class AddEditBookActivity extends AppCompatActivity {
 		finish();
 	}
 	public void save(View view) {
-
+		//saving the data values to place in the xml
 		book.title = title.getText().toString();
 		book.genre = genre.getText().toString();
 

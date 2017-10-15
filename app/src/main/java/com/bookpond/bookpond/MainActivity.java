@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		//Using the dataPump class it gathers the books from the json files
 		borrowedBooks = DataPump.getMyBorrowedBookData(getAssets());
-		availableBooks = DataPump.getMyBookData(getAssets());
+		availableBooks = DataPump.getAvailableBookData(getAssets());
 		genreAndBookMap = DataPump.getMyGenreAndBooksData(getAssets());
 		genreList = new ArrayList<>(genreAndBookMap.keySet());
 		//All of the necessary view code

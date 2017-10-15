@@ -21,13 +21,15 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void readBookJsonToString() throws Exception {
+        //reads file
         String jsonStr = FileUtils.readFileToString(new File("app/src/test/resources/Book.json"), "UTF-8");
 
         ObjectMapper mapper = new ObjectMapper();
+        // assigns file
         Book bookJson = mapper.readValue(jsonStr, Book.class);
-
+        //example books
         Book bookExpected = new Book("1", "Harry Potter Philosophers Stone", "Fantasy");
-
+        //make an equation for equals.
         assertEquals(bookExpected, bookJson);
 }
 
@@ -42,7 +44,7 @@ public class ExampleUnitTest {
 //        ObjectMapper mapper = new ObjectMapper();
 //        Shelf books = mapper.readValue(jsonStr, Shelf.class);
 
-        //List<Book> testPump = DataPump.getMyBookData();
+        //List<Book> testPump = DataPump.getAvailableBookData();
 
 
         List<Book> expectedList = new ArrayList<>();

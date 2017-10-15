@@ -45,7 +45,7 @@ public final class Shelf {
 
 	/**
 	 *
-	 * @param genreAndBooks
+	 * @param genreAndBooks this is needed to locate where all the books are.
 	 * @param genres genres wont be needed here.
 	 * @param book the targeted book to be removed.
 	 * @return
@@ -60,7 +60,7 @@ public final class Shelf {
 
         return genreAndBooks;
     }
-//?
+//not used anymore I believe so maybe still useful later on
 	public static List<String> getTitles(List<Book> bookList){
 		List<String> titles = new ArrayList<>();
 		for ( Book aBook : bookList) {
